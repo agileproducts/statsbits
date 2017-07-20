@@ -24,16 +24,16 @@ elections.results$Total <- (elections.results$Male + elections.results$Female)
 elections.totalvotes <- aggregate(Total ~ Year, data = elections.results, sum)
 elections.totalvotes
 
-#get total votes by sex in each election
-elections.gendervotes <- aggregate(cbind(Male,Female) ~ Year, data = elections.results, sum)
-elections.gendervotes
-
 #base R barplot
 barplot(elections.totalvotes$Total,
         names.arg = elections.totalvotes$Year,
         main="Total votes cast in elections",
         ylab="millions of votes",
         col = c("#CCCCCC"))
+
+#get total votes by sex in each election
+elections.gendervotes <- aggregate(cbind(Male,Female) ~ Year, data = elections.results, sum)
+elections.gendervotes
 
 #base R grouped barplot
 #in order to group or stack bars data needs to be converted to a matrix like this:
@@ -49,6 +49,11 @@ barplot(t(gendercounts), #transpose
         ylab="millions of votes",
         legend.text=TRUE,
         args.legend = list(x = 'topright', bty = 'n', inset=c(0.5,1.2)))
+
+#get total votes cast by party in each election
+elections.partyvotes <- cbind.data.frame(elections.results$Year,elections.results$Party,elections.results$Total)
+
+
 
 
 
